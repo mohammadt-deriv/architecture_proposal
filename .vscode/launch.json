@@ -1,0 +1,57 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "architecture_proposal",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "architecture_proposal (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "architecture_proposal (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "architecture_proposal_data",
+            "cwd": "packages/architecture_proposal_data",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "architecture_proposal_domain",
+            "cwd": "packages/architecture_proposal_domain",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "architecture_proposal_ui",
+            "cwd": "packages/architecture_proposal_ui",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "architecture_proposal_ui (profile mode)",
+            "cwd": "packages/architecture_proposal_ui",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "architecture_proposal_ui (release mode)",
+            "cwd": "packages/architecture_proposal_ui",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
