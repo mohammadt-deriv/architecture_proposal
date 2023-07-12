@@ -1,10 +1,10 @@
-# Package-by-layer Architecture
+# Package-by-Layer Architecture
 
 ![diagram](https://github.com/mohammadt-deriv/architecture_proposal/assets/75987594/d8f84d86-13e5-466b-93d5-48b86e943129)
 
 
 ## What is it
-Its just a custom version of layered architecture, fine-tuned for flutter apps, which aims highly for `testability` and `simplicity`.
+Its just a custom version of layered architecture, fine-tuned for flutter apps, aming for high `testability` and `simplicity`.
 
 ## Overview
 This architecture consist of 4 main layers, where each layer reside in its own package:
