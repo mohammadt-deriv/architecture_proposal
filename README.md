@@ -1,3 +1,3 @@
 # Yet another architecture proposal
 
-![diagram](https://github.com/mohammadt-deriv/architecture_proposal/assets/75987594/61f530d6-a552-47f2-b717-81b911447783)
+![diagram](https://github.com/mohammadt-deriv/architecture_proposal/assets/75987594/468c0deb-d7ee-42f6-9215-639398dd5aca)
