@@ -9,7 +9,7 @@ packages:
     source: path
     version: "1.0.0"
   architecture_proposal_domain:
-    dependency: transitive
+    dependency: "direct main"
     description:
       path: "packages/architecture_proposal_domain"
       relative: true

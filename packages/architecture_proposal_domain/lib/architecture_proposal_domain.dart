@@ -15,3 +15,5 @@ export 'src/auth/auth_state.dart';
 export 'src/auth/user.dart';
 export 'src/auth/authenticator.dart';
 export 'src/auth/auth_error.dart';
+export 'src/feature_flag/feature_flag_receiver.dart';
+export 'src/feature_flag/feature_flag.dart';

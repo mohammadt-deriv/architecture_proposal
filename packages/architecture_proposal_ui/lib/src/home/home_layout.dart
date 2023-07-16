@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:architecture_proposal_ui/src/auth/auth_listener.dart';
 import 'package:architecture_proposal_ui/src/market_selector/market_selector.dart';
-import 'package:architecture_proposal_ui/src/test_feature/test_feature.dart';
+import 'package:architecture_proposal_ui/src/test_feature/feature_a.dart';
+import 'package:architecture_proposal_ui/src/test_feature/feature_b.dart';
 import 'package:flutter/material.dart';
 
 import 'package:architecture_proposal_domain/architecture_proposal_domain.dart';
@@ -23,14 +24,16 @@ class HomeLayout extends StatefulWidget {
     required this.authManager,
     required this.onLoggedOut,
     required this.onError,
-    this.testFeatureEnabled = false,
+    this.featureAEnabled = false,
+    this.featureBEnabled = false,
     super.key,
   });
 
   final ActiveSymbolsFetcher activeSymbolsFetcher;
   final TickStreamFetcher tickStreamFetcher;
   final AuthManager authManager;
-  final bool testFeatureEnabled;
+  final bool featureAEnabled;
+  final bool featureBEnabled;
   final void Function() onLoggedOut;
   final void Function(String error) onError;
 
@@ -84,18 +87,18 @@ class _HomeLayoutState extends State<HomeLayout> {
                     onError: (error) => widget.onError(error.message),
                   ),
                 ),
-                Expanded(
-                  child: MarketPriceViewer(
-                    selectedSymbolStream: selectedActiveSymbolController.stream,
-                    tickStreamFetcher: widget.tickStreamFetcher,
-                    onError: (error) => widget.onError(error.message),
-                  ),
+                MarketPriceViewer(
+                  selectedSymbolStream: selectedActiveSymbolController.stream,
+                  tickStreamFetcher: widget.tickStreamFetcher,
+                  onError: (error) => widget.onError(error.message),
                 ),
-                if (widget.testFeatureEnabled)
-                  const Expanded(
-                      child: Center(
-                    child: TestFeature(),
-                  ))
+                Expanded(
+                    child: Column(
+                  children: [
+                    if (widget.featureAEnabled) const FeatureA(),
+                    if (widget.featureBEnabled) const FeatureB(),
+                  ],
+                ))
               ],
             ),
           ),

@@ -1,6 +1,7 @@
 import 'package:architecture_proposal/helpers.dart';
 import 'package:architecture_proposal/router.dart';
 import 'package:architecture_proposal_data/architecture_proposal_data.dart';
+import 'package:architecture_proposal_domain/architecture_proposal_domain.dart';
 import 'package:architecture_proposal_ui/architecture_proposal_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,11 +15,16 @@ class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context) => HomeLayout(
-        activeSymbolsFetcher: context.read<ActiveSymbolRepository>(),
-        tickStreamFetcher: context.read<TickStreamRepository>(),
-        authManager: context.read<AuthCubit>(),
-        onLoggedOut: () => context.pushAuth(replacement: true),
-        onError: (error) => showError(context, error),
+  Widget build(BuildContext context) => FeatureFlagBuilder(
+        receiver: context.read<FeatureFlagRepository>(),
+        builder: (context, flags) => HomeLayout(
+          activeSymbolsFetcher: context.read<ActiveSymbolRepository>(),
+          tickStreamFetcher: context.read<TickStreamRepository>(),
+          authManager: context.read<AuthCubit>(),
+          featureAEnabled: flags.contains(Feature.featureA),
+          featureBEnabled: flags.contains(Feature.featureB),
+          onLoggedOut: () => context.pushAuth(replacement: true),
+          onError: (error) => showError(context, error),
+        ),
       );
 }

@@ -34,6 +34,9 @@ class MainApp extends StatelessWidget {
               authenticator: context.read<AuthRepository>(),
             ),
           ),
+          Provider<FeatureFlagRepository>(
+            create: (context) => FeatureFlagRepository(),
+          ),
         ],
         child: MaterialApp.router(
           theme: ThemeData(

@@ -9,8 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  # architecture_proposal_domain:
-  #   path: packages/architecture_proposal_domain
+  architecture_proposal_domain:
+    path: packages/architecture_proposal_domain
   architecture_proposal_data:
     path: packages/architecture_proposal_data
   architecture_proposal_ui:
