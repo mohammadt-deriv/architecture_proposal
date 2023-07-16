@@ -4,4 +4,4 @@ export 'src/sp_key_value_storage.dart';
 export 'src/deriv_api.dart';
 export 'src/auth/auth_cubit.dart';
 export 'src/auth/auth_repository.dart';
-export 'src/feature_flag/feature_flag_cubit.dart';
+export 'src/feature_flag/feature_flag_repository.dart';

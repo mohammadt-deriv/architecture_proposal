@@ -50,11 +50,10 @@ For example `AuthCubit` will live in this layer, because its an implementation o
 >**Responsible for connecting layers**
 
 Data and UI layers are nothing useful by themselves, so another layer step in to connect them together.
-App layer is our final package where we instantiate both ui and data classes, and pass instances to eachother as their constructor requirement. This package will define routes and pages of the client app, so he is the only one aware of navigation system.
-It can also define app themes, env variables, flavors, and anything related to app in general.
+App layer is our final package where we instantiate both ui and data classes, and pass instances to eachother as their constructor requirement. This package will define routes and pages of the client app, so it is the only one aware of navigation system.
+It can also define app themes, env variables, flavors, feature flags and anything related to app in general.
 #### Rules
-- Depends on ui and data layer.
-- No dependency to domain.
+- Depends all ui and data and domain layer.
 - No UI code allowed in this layer.
 - No domain code allowed in this layer.
 - No Data code allowed in this layer.
@@ -87,3 +86,23 @@ Other advantages:
 - You high level widgets, like templates and layouts, will probably have long list of dependencies in their constructor, as they need to also provide dependency for their children. we can fix that by passing them `.of(context)` way but personally i prefer get compile error when i miss passing a dependency, not runtime one.
 - You need to go through different packages to add/remove a feature code.
 - You might not be familiar with TDD and fail to define proper interfaces for your UI.(happens for me)
+
+## Folders Structure
+First we create the main `app` package. then we create a folder called `packages` and put other 3 package in there(`ui`,`data`,`domain`).
+you can find a sample of this structure in `example` folder of this repo.
+
+## Example app
+This example covers this scenario:
+1. User login to app with deriv token or as guest.
+2. User selects a symbol/market from a selector and see its live price from deriv api.
+
+### Additional scenarios:
+- Feature flags
+- Reconnect mechanism for websocket
+- Error handling
+- Remembers last logged in user on fresh start
+- Uses modern navigation package (GoRouter)
+
+### Remaining
+- Tests :(
+- Localization (still not sure how to do it in this architecture)

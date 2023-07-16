@@ -1,0 +1,30 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "packages/architecture_proposal_domain/test": true,
+        "packages/architecture_proposal_domain/.gitignore": true,
+        "packages/architecture_proposal_domain/analysis_options.yaml": true,
+        "packages/architecture_proposal_domain/pubspec.lock": true,
+        "packages/architecture_proposal_domain/README.md": true,
+        "packages/architecture_proposal_ui/.dart_tool": true,
+        "packages/architecture_proposal_ui/.gitignore": true,
+        "packages/architecture_proposal_ui/analysis_options.yaml": true,
+        "packages/architecture_proposal_ui/pubspec.lock": true
+    },
+    "hide-files.files": [
+        "packages/architecture_proposal_domain/test",
+        "packages/architecture_proposal_domain/.gitignore",
+        "packages/architecture_proposal_domain/analysis_options.yaml",
+        "packages/architecture_proposal_domain/pubspec.lock",
+        "packages/architecture_proposal_domain/README.md",
+        "packages/architecture_proposal_ui/.dart_tool",
+        "packages/architecture_proposal_ui/.gitignore",
+        "packages/architecture_proposal_ui/analysis_options.yaml",
+        "packages/architecture_proposal_ui/pubspec.lock"
+    ]
+}
