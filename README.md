@@ -78,9 +78,6 @@ in a survey from deriv mobile developers, we asked them to list problems in the 
 
 Tight coupling is result of mixing ui and data code, which in this architecture we tried to define clear constraints for violating it, by having separate package for each layer.
 Also missing domain layer is the real cause of having bad dependency injection and low testability.
-Other advantages:
-- Least boilerplate code
-- Low learning curve due to minimum layers
 
 ## Problems that this architecture introduce
 - You high level widgets, like templates and layouts, will probably have long list of dependencies in their constructor, as they need to also provide dependency for their children. we can fix that by passing them `.of(context)` way but personally i prefer get compile error when i miss passing a dependency, not runtime one.
