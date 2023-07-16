@@ -10,11 +10,13 @@ class TickStreamWidget extends StatefulWidget {
   const TickStreamWidget({
     required this.fetcher,
     required this.symbol,
+    required this.onError,
     super.key,
   });
 
   final ActiveSymbol symbol;
   final TickStreamFetcher fetcher;
+  final void Function(DataException error) onError;
 
   @override
   State<TickStreamWidget> createState() => _TickStreamWidgetState();
@@ -46,11 +48,7 @@ class _TickStreamWidgetState extends State<TickStreamWidget> {
         bloc: _cubit,
         listener: (context, state) {
           if (state is TickStreamWidgetErrorState) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.errorMessage),
-              ),
-            );
+            widget.onError(state.error);
           }
         },
         builder: (context, state) => Column(

@@ -16,19 +16,29 @@ class MainApp extends StatelessWidget {
           Provider<ActiveSymbolRepository>(
             create: (context) => ActiveSymbolRepository(
               source: DerivApi.instance,
-              cacheManager: MapCacheManager(),
             ),
           ),
           Provider<TickStreamRepository>(
-            create: (context) =>
-                TickStreamRepository(source: DerivApi.instance),
+            create: (context) => TickStreamRepository(
+              source: DerivApi.instance,
+            ),
+          ),
+          Provider<AuthRepository>(
+            create: (context) => AuthRepository(
+              source: DerivApi.instance,
+              storage: SPKeyValueStorage(),
+            ),
+          ),
+          Provider<AuthCubit>(
+            create: (context) => AuthCubit(
+              authenticator: context.read<AuthRepository>(),
+            ),
           ),
         ],
         child: MaterialApp.router(
           theme: ThemeData(
             useMaterial3: true,
             brightness: Brightness.dark,
-            primarySwatch: Colors.orange,
           ),
           routerConfig: routerConfig,
         ),

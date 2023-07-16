@@ -58,20 +58,19 @@ class DerivApi implements DataSource {
   }
 
   @override
-  Future<(Stream<Map<String, dynamic>> data, String subscriptionId)>
-      requestStream({required Map<String, dynamic> request}) async {
+  Future<Stream<Map<String, dynamic>>> requestStream(
+      {required Map<String, dynamic> request}) async {
     final reqId = Object().hashCode.toString();
     request['req_id'] = reqId;
 
     _sendData(request);
 
-    final (stream, subscriptionId) = await _getStreamFor(reqId);
+    final stream = await _getStreamFor(reqId);
 
-    return (stream, subscriptionId ?? '');
+    return stream;
   }
 
-  Future<(Stream<Map<String, dynamic>> stream, String? subscriptionId)>
-      _getStreamFor(
+  Future<Stream<Map<String, dynamic>>> _getStreamFor(
     String reqId,
   ) async {
     while (!isConnected) {
@@ -88,18 +87,20 @@ class DerivApi implements DataSource {
     final hasError = firstData.containsKey('error');
 
     if (hasError) {
-      throw DataException(DataExceptionType.server,
-          message: firstData['error']['message']);
+      throw DataException(
+        DataExceptionType.server,
+        message: firstData['error']['message'],
+        code: firstData['error']['code'],
+      );
     }
 
-    final String? subscriptionId = firstData['subscription']?['id'];
-    return (streamResp.startWith(firstData), subscriptionId);
+    return (streamResp.startWith(firstData));
   }
 
   Future<Map<String, dynamic>> _getResponseFor(
     String reqId,
   ) async {
-    final (stream, _) = await _getStreamFor(reqId);
+    final stream = await _getStreamFor(reqId);
 
     return stream.first;
   }

@@ -9,11 +9,13 @@ class MarketSelector extends StatefulWidget {
   const MarketSelector({
     required this.activeSymbolsFetcher,
     required this.onActiveSymbolChanged,
+    required this.onError,
     super.key,
   });
 
   final ActiveSymbolsFetcher activeSymbolsFetcher;
   final void Function(ActiveSymbol symbol) onActiveSymbolChanged;
+  final void Function(DataException error) onError;
 
   @override
   State<MarketSelector> createState() => _MarketSelectorState();
@@ -75,11 +77,7 @@ class _MarketSelectorState extends State<MarketSelector> {
     }
 
     if (state is MarketSelectorErrorState) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(state.errorMessage),
-        ),
-      );
+      widget.onError(state.error);
     }
   }
 }

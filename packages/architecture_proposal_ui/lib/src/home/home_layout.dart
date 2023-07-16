@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:architecture_proposal_ui/src/auth/auth_listener.dart';
 import 'package:architecture_proposal_ui/src/market_selector/market_selector.dart';
+import 'package:architecture_proposal_ui/src/test_feature/test_feature.dart';
 import 'package:flutter/material.dart';
 
 import 'package:architecture_proposal_domain/architecture_proposal_domain.dart';
@@ -18,11 +20,19 @@ class HomeLayout extends StatefulWidget {
   const HomeLayout({
     required this.activeSymbolsFetcher,
     required this.tickStreamFetcher,
+    required this.authManager,
+    required this.onLoggedOut,
+    required this.onError,
+    this.testFeatureEnabled = false,
     super.key,
   });
 
   final ActiveSymbolsFetcher activeSymbolsFetcher;
   final TickStreamFetcher tickStreamFetcher;
+  final AuthManager authManager;
+  final bool testFeatureEnabled;
+  final void Function() onLoggedOut;
+  final void Function(String error) onError;
 
   @override
   State<HomeLayout> createState() => _HomeLayoutState();
@@ -38,30 +48,56 @@ class _HomeLayoutState extends State<HomeLayout> {
     super.initState();
   }
 
+  String get loggedInUsername =>
+      widget.authManager.currentUser?.email ?? 'Guest';
+
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          title: const Text('App Architecture Demo'),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Column(
-            children: <Widget>[
-              SizedBox(
-                height: 48,
-                child: MarketSelector(
-                  activeSymbolsFetcher: widget.activeSymbolsFetcher,
-                  onActiveSymbolChanged: selectedActiveSymbolController.add,
-                ),
-              ),
-              Expanded(
-                child: MarketPriceViewer(
-                  selectedSymbolStream: selectedActiveSymbolController.stream,
-                  tickStreamFetcher: widget.tickStreamFetcher,
-                ),
-              ),
+  Widget build(BuildContext context) => AuthListener(
+        authManager: widget.authManager,
+        onLoggedOut: widget.onLoggedOut,
+        child: Scaffold(
+          appBar: AppBar(
+            elevation: 0,
+            title: const Text('Home'),
+            actions: [
+              TextButton.icon(
+                onPressed: widget.authManager.logout,
+                icon: const Icon(Icons.logout),
+                label: const Text('Logout'),
+              )
             ],
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('Logged in as: $loggedInUsername'),
+                ),
+                const SizedBox(height: 16),
+                SizedBox(
+                  height: 48,
+                  child: MarketSelector(
+                    activeSymbolsFetcher: widget.activeSymbolsFetcher,
+                    onActiveSymbolChanged: selectedActiveSymbolController.add,
+                    onError: (error) => widget.onError(error.message),
+                  ),
+                ),
+                Expanded(
+                  child: MarketPriceViewer(
+                    selectedSymbolStream: selectedActiveSymbolController.stream,
+                    tickStreamFetcher: widget.tickStreamFetcher,
+                    onError: (error) => widget.onError(error.message),
+                  ),
+                ),
+                if (widget.testFeatureEnabled)
+                  const Expanded(
+                      child: Center(
+                    child: TestFeature(),
+                  ))
+              ],
+            ),
           ),
         ),
       );

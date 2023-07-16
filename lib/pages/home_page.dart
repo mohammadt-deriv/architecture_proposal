@@ -1,3 +1,5 @@
+import 'package:architecture_proposal/helpers.dart';
+import 'package:architecture_proposal/router.dart';
 import 'package:architecture_proposal_data/architecture_proposal_data.dart';
 import 'package:architecture_proposal_ui/architecture_proposal_ui.dart';
 import 'package:flutter/material.dart';
@@ -15,5 +17,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) => HomeLayout(
         activeSymbolsFetcher: context.read<ActiveSymbolRepository>(),
         tickStreamFetcher: context.read<TickStreamRepository>(),
+        authManager: context.read<AuthCubit>(),
+        onLoggedOut: () => context.pushAuth(replacement: true),
+        onError: (error) => showError(context, error),
       );
 }

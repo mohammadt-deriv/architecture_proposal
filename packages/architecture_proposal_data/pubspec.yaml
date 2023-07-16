@@ -8,7 +8,9 @@ environment:
 dependencies:
   architecture_proposal_domain:
     path: ../architecture_proposal_domain
+  bloc: ^8.1.2
   rxdart: ^0.27.7
+  shared_preferences: ^2.2.0
     
 dev_dependencies:
   lints: ^2.0.0

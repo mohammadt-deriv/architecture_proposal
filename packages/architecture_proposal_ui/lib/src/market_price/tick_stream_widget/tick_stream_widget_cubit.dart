@@ -14,21 +14,23 @@ class TickStreamWidgetCubit extends Cubit<TickStreamWidgetState> {
   void loadTickStream(ActiveSymbol symbol) {
     fetcher.forgotTickStream(state.getTickSubscriptionId).on(
           onLoading: () => emit(TickStreamWidgetLoadingState()),
-          onError: (error) => emit(TickStreamWidgetErrorState(error)),
+          onError: (DataException error) =>
+              emit(TickStreamWidgetErrorState(error)),
         );
 
     fetcher.listenTickStream(symbol.symbol).on(
           onLoading: () => emit(TickStreamWidgetLoadingState()),
-          onData: (data) => data.$1.listen(
+          onData: (data) => data.listen(
             (tick) => emit(
               TickStreamLoadedState(
                 loadedTick: tick,
-                tickSubscriptionId: data.$2,
+                tickSubscriptionId: tick.id,
                 state: getTickState(previous: state.getTick, current: tick),
               ),
             ),
           ),
-          onError: (error) => emit(TickStreamWidgetErrorState(error)),
+          onError: (DataException error) =>
+              emit(TickStreamWidgetErrorState(error)),
         );
   }
 }

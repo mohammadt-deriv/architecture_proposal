@@ -7,11 +7,13 @@ class MarketPriceViewer extends StatelessWidget {
   const MarketPriceViewer({
     required this.tickStreamFetcher,
     required this.selectedSymbolStream,
+    required this.onError,
     super.key,
   });
 
   final Stream<ActiveSymbol> selectedSymbolStream;
   final TickStreamFetcher tickStreamFetcher;
+  final void Function(DataException error) onError;
 
   @override
   Widget build(BuildContext context) => Padding(
@@ -26,6 +28,7 @@ class MarketPriceViewer extends StatelessWidget {
               return TickStreamWidget(
                 symbol: snapshot.data!,
                 fetcher: tickStreamFetcher,
+                onError: onError,
               );
             } else {
               return const Text('Please select an active symbol.');
@@ -33,4 +36,12 @@ class MarketPriceViewer extends StatelessWidget {
           },
         ),
       );
+
+  void onTickStreamError(BuildContext context, String errorMessage) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(errorMessage),
+      ),
+    );
+  }
 }

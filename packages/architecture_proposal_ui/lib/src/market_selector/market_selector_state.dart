@@ -16,9 +16,7 @@ class MarketSelectorLoadingState extends MarketSelectorState {}
 
 class MarketSelectorErrorState extends MarketSelectorState {
   MarketSelectorErrorState(this.error);
-  final Object error;
-
-  String get errorMessage => error.toString();
+  final DataException error;
 }
 
 class MarketSelectorLoadedState extends MarketSelectorState {

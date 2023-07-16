@@ -7,16 +7,15 @@ class TickStreamRepository implements TickStreamFetcher {
   final DataSource source;
 
   @override
-  Future<(Stream<Tick>, String)> listenTickStream(String symbol) async {
+  Future<Stream<Tick>> listenTickStream(String symbol) async {
     final request = <String, dynamic>{
       'ticks': symbol,
       'subscribe': 1,
     };
 
-    final (stream, subscriptionId) =
-        await source.requestStream(request: request);
+    final stream = await source.requestStream(request: request);
 
-    return (stream.map((event) => event.toTick()), subscriptionId);
+    return stream.map((event) => event.toTick());
   }
 
   @override

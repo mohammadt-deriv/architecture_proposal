@@ -5,11 +5,13 @@ enum DataExceptionType {
 }
 
 class DataException implements Exception {
-  DataException(this.type, {String? message})
-      : message = message ?? type.defaultMessage();
+  DataException(this.type, {String? message, String? code})
+      : message = message ?? type.defaultMessage(),
+        code = code ?? 'UNDEFINED';
 
   final DataExceptionType type;
   final String message;
+  final String code;
 
   @override
   String toString() => message;

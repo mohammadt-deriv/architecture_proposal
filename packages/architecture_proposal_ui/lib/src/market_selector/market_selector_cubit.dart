@@ -35,8 +35,7 @@ class MarketSelectorCubit extends Cubit<MarketSelectorState> {
 
   void _loadSymbols() => fetcher.fetchAllSymbols().on(
         onLoading: () => emit(MarketSelectorLoadingState()),
-        onData: (data) =>
-            emit(MarketSelectorLoadedState(loadedSymbols: data)),
-        onError: (error) => emit(MarketSelectorErrorState(error)),
+        onData: (data) => emit(MarketSelectorLoadedState(loadedSymbols: data)),
+        onError: (DataException error) => emit(MarketSelectorErrorState(error)),
       );
 }

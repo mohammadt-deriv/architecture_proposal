@@ -17,10 +17,16 @@ extension JsonMapper on Map<String, dynamic> {
   Tick toTick() {
     final Map<String, dynamic> tick = this['tick'];
     return Tick(
+      id: tick['id'],
       epoch: tick['epoch'] ?? 0,
       quote: tick['quote'],
       symbol: tick['symbol'],
       pipSize: tick['pip_size'],
     );
+  }
+
+  User toUser() {
+    final Map<String, dynamic> authorize = this['authorize'];
+    return User(email: authorize['email']);
   }
 }

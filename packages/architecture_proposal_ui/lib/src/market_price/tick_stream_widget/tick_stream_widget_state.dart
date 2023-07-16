@@ -13,9 +13,7 @@ class TickStreamWidgetInitialState extends TickStreamWidgetState {}
 class TickStreamWidgetErrorState extends TickStreamWidgetState {
   TickStreamWidgetErrorState(this.error);
 
-  final Object error;
-
-  String get errorMessage => error.toString();
+  final DataException error;
 }
 
 class TickStreamWidgetLoadingState extends TickStreamWidgetState {}
