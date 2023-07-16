@@ -1,6 +1,6 @@
 # Package-by-Layer Architecture
 
-![diagram](https://github.com/mohammadt-deriv/architecture_proposal/assets/75987594/d8f84d86-13e5-466b-93d5-48b86e943129)
+![diagram](https://github.com/mohammadt-deriv/architecture_proposal/assets/75987594/946f57f3-01d1-4466-9a6e-6026568b7eff)
 
 
 ## What is it
@@ -90,6 +90,15 @@ Other advantages:
 ## Folders Structure
 First we create the main `app` package. then we create a folder called `packages` and put other 3 package in there(`ui`,`data`,`domain`).
 you can find a sample of this structure in `example` folder of this repo.
+
+
+    .
+    ├── lib
+    ├── packages
+    │   ├── data-package   
+    │   ├── ui-package
+    │   └── domain-package
+    └── pubspec.yaml
 
 ## Example app
 This example covers this scenario:
