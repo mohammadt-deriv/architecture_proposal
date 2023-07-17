@@ -2,6 +2,7 @@
 
 ![diagram](https://github.com/mohammadt-deriv/architecture_proposal/assets/75987594/946f57f3-01d1-4466-9a6e-6026568b7eff)
 
+[Diagram Link](https://excalidraw.com/#json=scYH0c-Eq1jmE-Y_rAcUh,S-34y1qVKRI4uCiJm5rBvQ)
 
 ## What is it
 Its just a custom version of layered architecture, fine-tuned for flutter apps, aming for high `testability` and `simplicity`.
