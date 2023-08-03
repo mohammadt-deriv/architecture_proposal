@@ -1,7 +1,8 @@
 # Package-by-Layer Architecture
 
-![diagram](https://github.com/mohammadt-deriv/architecture_proposal/assets/75987594/d8f84d86-13e5-466b-93d5-48b86e943129)
+![diagram](https://github.com/mohammadt-deriv/architecture_proposal/assets/75987594/946f57f3-01d1-4466-9a6e-6026568b7eff)
 
+[Diagram Link](https://excalidraw.com/#json=scYH0c-Eq1jmE-Y_rAcUh,S-34y1qVKRI4uCiJm5rBvQ)
 
 ## What is it
 Its just a custom version of layered architecture, fine-tuned for flutter apps, aming for high `testability` and `simplicity`.
@@ -78,9 +79,6 @@ in a survey from deriv mobile developers, we asked them to list problems in the 
 
 Tight coupling is result of mixing ui and data code, which in this architecture we tried to define clear constraints for violating it, by having separate package for each layer.
 Also missing domain layer is the real cause of having bad dependency injection and low testability.
-Other advantages:
-- Least boilerplate code
-- Low learning curve due to minimum layers
 
 ## Problems that this architecture introduce
 - You high level widgets, like templates and layouts, will probably have long list of dependencies in their constructor, as they need to also provide dependency for their children. we can fix that by passing them `.of(context)` way but personally i prefer get compile error when i miss passing a dependency, not runtime one.
@@ -90,6 +88,15 @@ Other advantages:
 ## Folders Structure
 First we create the main `app` package. then we create a folder called `packages` and put other 3 package in there(`ui`,`data`,`domain`).
 you can find a sample of this structure in `example` folder of this repo.
+
+
+    .
+    ├── lib
+    ├── packages
+    │   ├── data-package   
+    │   ├── ui-package
+    │   └── domain-package
+    └── pubspec.yaml
 
 ## Example app
 This example covers this scenario:
