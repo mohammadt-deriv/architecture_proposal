@@ -14,33 +14,33 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MultiProvider(
         providers: [
-          Provider<ActiveSymbolRepository>(
+          Provider<ActiveSymbolsFetcher>(
             create: (context) => ActiveSymbolRepository(
               source: DerivApi.instance,
             ),
           ),
-          Provider<TickStreamRepository>(
+          Provider<TickStreamFetcher>(
             create: (context) => TickStreamRepository(
               source: DerivApi.instance,
             ),
           ),
-          Provider<AuthRepository>(
+          Provider<Authenticator>(
             create: (context) => AuthRepository(
               source: DerivApi.instance,
               storage: SPKeyValueStorage(),
             ),
           ),
-          Provider<AuthCubit>(
+          Provider<AuthManager>(
             create: (context) => AuthCubit(
-              authenticator: context.read<AuthRepository>(),
+              authenticator: context.read<Authenticator>(),
             ),
           ),
           Provider<TickStreamManager>(
             create: (context) => TickStreamCubit(
-              fetcher: context.read<TickStreamRepository>(),
+              fetcher: context.read<TickStreamFetcher>(),
             ),
           ),
-          Provider<FeatureFlagRepository>(
+          Provider<FeatureFlagFetcher>(
             create: (context) => FeatureFlagRepository(),
           ),
         ],

@@ -1,6 +1,5 @@
 import 'package:architecture_proposal/helpers.dart';
 import 'package:architecture_proposal/router.dart';
-import 'package:architecture_proposal_data/architecture_proposal_data.dart';
 import 'package:architecture_proposal_domain/architecture_proposal_domain.dart';
 import 'package:architecture_proposal_ui/architecture_proposal_ui.dart';
 import 'package:flutter/material.dart';
@@ -16,11 +15,11 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => FeatureFlagBuilder(
-        receiver: context.read<FeatureFlagRepository>(),
+        receiver: context.read<FeatureFlagFetcher>(),
         builder: (context, flags) => HomeLayout(
-          activeSymbolsFetcher: context.read<ActiveSymbolRepository>(),
+          activeSymbolsFetcher: context.read<ActiveSymbolsFetcher>(),
           tickStreamManager: context.read<TickStreamManager>(),
-          authManager: context.read<AuthCubit>(),
+          authManager: context.read<AuthManager>(),
           chartFeatureEnabled: flags.contains(Feature.chartFeature),
           onShowChartTapped: () => context.goChart(),
           onLoggedOut: () => context.goAuth(),

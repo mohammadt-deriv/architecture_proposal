@@ -20,6 +20,7 @@ class TickStreamCubit extends Cubit<TickStreamState>
     fetcher.listenTickStream(symbol.symbol).on(
           onLoading: () => emit(TickStreamLoadingState()),
           onData: (data) => data.listen(
+            // TODO: add listen cancelation
             (tick) => emit(
               TickStreamLoadedState(
                 ticks: [...state.getTicks, tick],

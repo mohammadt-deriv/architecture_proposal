@@ -8,7 +8,7 @@ class FeatureFlagBuilder extends StatelessWidget {
     super.key,
   });
 
-  final FeatureFlagReceiver receiver;
+  final FeatureFlagFetcher receiver;
   final Widget Function(BuildContext, List<Feature>) builder;
 
   @override

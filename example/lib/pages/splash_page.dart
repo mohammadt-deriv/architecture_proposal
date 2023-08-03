@@ -1,4 +1,4 @@
-import 'package:architecture_proposal_data/architecture_proposal_data.dart';
+import 'package:architecture_proposal_domain/architecture_proposal_domain.dart';
 import 'package:architecture_proposal_ui/architecture_proposal_ui.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +10,7 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SplashLayout(
-        authManager: context.read<AuthCubit>(),
+        authManager: context.read<AuthManager>(),
         onUserExist: (user) => context.goHome(),
         onNewUser: () => context.goAuth(),
       );

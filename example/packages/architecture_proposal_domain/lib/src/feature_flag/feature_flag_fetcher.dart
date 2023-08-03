@@ -1,5 +1,5 @@
 import 'feature_flag.dart';
 
-abstract class FeatureFlagReceiver {
+abstract class FeatureFlagFetcher {
   Future<List<Feature>> fetchAvailableFeatures();
 }
