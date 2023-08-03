@@ -1,21 +1,18 @@
+import 'package:architecture_proposal_ui/src/market_price/tick_stream_widget/tick_stream_builder.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:architecture_proposal_domain/architecture_proposal_domain.dart';
 
-import 'tick_stream_widget_cubit.dart';
-import 'tick_stream_widget_state.dart';
-
 class TickStreamWidget extends StatefulWidget {
   const TickStreamWidget({
-    required this.fetcher,
+    required this.tickStreamManager,
     required this.symbol,
     required this.onError,
     super.key,
   });
 
   final ActiveSymbol symbol;
-  final TickStreamFetcher fetcher;
+  final TickStreamManager tickStreamManager;
   final void Function(DataException error) onError;
 
   @override
@@ -23,12 +20,10 @@ class TickStreamWidget extends StatefulWidget {
 }
 
 class _TickStreamWidgetState extends State<TickStreamWidget> {
-  late final TickStreamWidgetCubit _cubit;
-
   @override
   void didUpdateWidget(covariant TickStreamWidget oldWidget) {
     if (oldWidget.symbol != widget.symbol) {
-      _cubit.loadTickStream(widget.symbol);
+      widget.tickStreamManager.loadTickStream(widget.symbol);
     }
 
     super.didUpdateWidget(oldWidget);
@@ -36,21 +31,15 @@ class _TickStreamWidgetState extends State<TickStreamWidget> {
 
   @override
   void initState() {
-    _cubit = TickStreamWidgetCubit(fetcher: widget.fetcher)
-      ..loadTickStream(widget.symbol);
+    widget.tickStreamManager.loadTickStream(widget.symbol);
 
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) =>
-      BlocConsumer<TickStreamWidgetCubit, TickStreamWidgetState>(
-        bloc: _cubit,
-        listener: (context, state) {
-          if (state is TickStreamWidgetErrorState) {
-            widget.onError(state.error);
-          }
-        },
+  Widget build(BuildContext context) => TickStreamBuilder(
+        manager: widget.tickStreamManager,
+        onError: widget.onError,
         builder: (context, state) => Column(
           children: <Widget>[
             Row(
@@ -72,8 +61,8 @@ class _TickStreamWidgetState extends State<TickStreamWidget> {
                 Row(
                   children: <Widget>[
                     Text(
-                      state.getTick?.quote
-                              .toStringAsFixed(state.getTick?.pipSize ?? 0) ??
+                      state.getLatestTick?.quote.toStringAsFixed(
+                              state.getLatestTick?.pipSize ?? 0) ??
                           '-',
                       style: TextStyle(color: _getColor(state.getTickState)),
                     ),
@@ -89,7 +78,7 @@ class _TickStreamWidgetState extends State<TickStreamWidget> {
                   'Epoch: ',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Text(state.getTick?.epoch.getFormattedDateTime ?? '-'),
+                Text(state.getLatestTick?.epoch.getFormattedDateTime ?? '-'),
               ],
             ),
           ],

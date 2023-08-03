@@ -11,8 +11,8 @@ class AuthPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => AuthLayout(
         authStateManager: context.read<AuthCubit>(),
-        onAuthSuccess: (user) => context.pushHome(replacement: true),
-        onGuestLoginTapped: () => context.pushHome(replacement: true),
+        onAuthSuccess: (user) => context.goHome(),
+        onGuestLoginTapped: () => context.goHome(),
         onError: (error) => showError(context, error),
       );
 }

@@ -1,3 +1,4 @@
+import 'package:architecture_proposal_domain/architecture_proposal_domain.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -32,6 +33,11 @@ class MainApp extends StatelessWidget {
           Provider<AuthCubit>(
             create: (context) => AuthCubit(
               authenticator: context.read<AuthRepository>(),
+            ),
+          ),
+          Provider<TickStreamManager>(
+            create: (context) => TickStreamCubit(
+              fetcher: context.read<TickStreamRepository>(),
             ),
           ),
           Provider<FeatureFlagRepository>(

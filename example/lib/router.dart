@@ -1,3 +1,4 @@
+import 'package:architecture_proposal/pages/chart_page.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
@@ -8,6 +9,8 @@ import 'package:architecture_proposal/pages/splash_page.dart';
 const splashRoute = '/splash';
 const homeRoute = '/home';
 const authRoute = '/auth';
+const chartRouteName = 'chart';
+const chartFullRoute = '$homeRoute/$chartRouteName';
 
 final routerConfig = GoRouter(
   initialLocation: splashRoute,
@@ -19,6 +22,12 @@ final routerConfig = GoRouter(
     GoRoute(
       path: homeRoute,
       builder: (context, state) => const HomePage(),
+      routes: [
+        GoRoute(
+          path: chartRouteName,
+          builder: (context, state) => const ChartPage(),
+        ),
+      ],
     ),
     GoRoute(
       path: authRoute,
@@ -28,8 +37,7 @@ final routerConfig = GoRouter(
 );
 
 extension RouterExtensions on BuildContext {
-  void pushHome({bool replacement = false}) =>
-      replacement ? pushReplacement(homeRoute) : push(homeRoute);
-  void pushAuth({bool replacement = false}) =>
-      replacement ? pushReplacement(authRoute) : push(authRoute);
+  void goHome() => go(homeRoute);
+  void goAuth() => go(authRoute);
+  void goChart() => go(chartFullRoute);
 }

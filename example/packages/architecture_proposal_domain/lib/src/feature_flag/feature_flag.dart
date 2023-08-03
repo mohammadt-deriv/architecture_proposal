@@ -1,4 +1,3 @@
 enum Feature {
-  featureA,
-  featureB,
+  chartFeature,
 }

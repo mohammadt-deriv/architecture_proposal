@@ -7,6 +7,6 @@ class FeatureFlagRepository implements FeatureFlagReceiver {
     await Future.delayed(Duration(seconds: 1));
     //return [Feature.featureA];
     //return [Feature.featureB];
-    return [Feature.featureA, Feature.featureB];
+    return [Feature.chartFeature];
   }
 }

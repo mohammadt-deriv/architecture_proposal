@@ -19,11 +19,11 @@ class HomePage extends StatelessWidget {
         receiver: context.read<FeatureFlagRepository>(),
         builder: (context, flags) => HomeLayout(
           activeSymbolsFetcher: context.read<ActiveSymbolRepository>(),
-          tickStreamFetcher: context.read<TickStreamRepository>(),
+          tickStreamManager: context.read<TickStreamManager>(),
           authManager: context.read<AuthCubit>(),
-          featureAEnabled: flags.contains(Feature.featureA),
-          featureBEnabled: flags.contains(Feature.featureB),
-          onLoggedOut: () => context.pushAuth(replacement: true),
+          chartFeatureEnabled: flags.contains(Feature.chartFeature),
+          onShowChartTapped: () => context.goChart(),
+          onLoggedOut: () => context.goAuth(),
           onError: (error) => showError(context, error),
         ),
       );

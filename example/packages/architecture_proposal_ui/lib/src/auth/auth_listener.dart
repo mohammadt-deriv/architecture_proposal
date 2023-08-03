@@ -12,6 +12,7 @@ class AuthListener extends StatefulWidget {
     required this.child,
     super.key,
   });
+  
   final AuthManager authManager;
   final void Function(User user)? onLoggedIn;
   final void Function()? onLoggedOut;

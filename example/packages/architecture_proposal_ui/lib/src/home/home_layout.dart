@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:architecture_proposal_ui/src/auth/auth_listener.dart';
 import 'package:architecture_proposal_ui/src/market_selector/market_selector.dart';
-import 'package:architecture_proposal_ui/src/test_feature/feature_a.dart';
-import 'package:architecture_proposal_ui/src/test_feature/feature_b.dart';
 import 'package:flutter/material.dart';
 
 import 'package:architecture_proposal_domain/architecture_proposal_domain.dart';
@@ -20,21 +18,21 @@ import 'package:architecture_proposal_ui/src/market_price/market_price_viewer.da
 class HomeLayout extends StatefulWidget {
   const HomeLayout({
     required this.activeSymbolsFetcher,
-    required this.tickStreamFetcher,
+    required this.tickStreamManager,
     required this.authManager,
     required this.onLoggedOut,
     required this.onError,
-    this.featureAEnabled = false,
-    this.featureBEnabled = false,
+    this.onShowChartTapped,
+    this.chartFeatureEnabled = false,
     super.key,
   });
 
   final ActiveSymbolsFetcher activeSymbolsFetcher;
-  final TickStreamFetcher tickStreamFetcher;
+  final TickStreamManager tickStreamManager;
   final AuthManager authManager;
-  final bool featureAEnabled;
-  final bool featureBEnabled;
+  final bool chartFeatureEnabled;
   final void Function() onLoggedOut;
+  final void Function()? onShowChartTapped;
   final void Function(String error) onError;
 
   @override
@@ -89,14 +87,18 @@ class _HomeLayoutState extends State<HomeLayout> {
                 ),
                 MarketPriceViewer(
                   selectedSymbolStream: selectedActiveSymbolController.stream,
-                  tickStreamFetcher: widget.tickStreamFetcher,
+                  tickStreamManager: widget.tickStreamManager,
                   onError: (error) => widget.onError(error.message),
                 ),
                 Expanded(
                     child: Column(
                   children: [
-                    if (widget.featureAEnabled) const FeatureA(),
-                    if (widget.featureBEnabled) const FeatureB(),
+                    if (widget.chartFeatureEnabled)
+                      TextButton.icon(
+                        icon: const Icon(Icons.show_chart),
+                        label: const Text('Show Chart'),
+                        onPressed: widget.onShowChartTapped,
+                      ),
                   ],
                 ))
               ],

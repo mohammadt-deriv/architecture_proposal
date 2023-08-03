@@ -49,6 +49,7 @@ class DerivApi implements DataSource {
   Future<Map<String, dynamic>> request({
     required Map<String, dynamic> request,
   }) {
+    
     final reqId = Object().hashCode.toString();
     request['req_id'] = reqId;
 
