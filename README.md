@@ -98,18 +98,8 @@ you can find a sample of this structure in `example` folder of this repo.
     │   └── domain-package
     └── pubspec.yaml
 
-## Example app
-This example covers this scenario:
-1. User login to app with deriv token or as guest.
-2. User selects a symbol/market from a selector and see its live price from deriv api.
+## Localization
+Localization shoud be done in `ui package`, since only widgets in ui package need localization.
+We can do it by passing generated localization delegates from `ui package` to `app package` in `MaterialApp`, and thats no issue because our app package already knows about ui package.
 
-### Additional scenarios:
-- Feature flags
-- Reconnect mechanism for websocket
-- Error handling
-- Remembers last logged in user on fresh start
-- Uses modern navigation package (GoRouter)
 
-### Remaining
-- Tests :(
-- Localization (still not sure how to do it in this architecture)
