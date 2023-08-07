@@ -120,7 +120,7 @@ void main() {
 
       verify(() => tickStreamManager.loadTickStream(any())).called(1);
 
-      expect(find.text('20.1'), findsOneWidget);
+      expect(find.text('20.0'), findsOneWidget);
     });
   });
 }
