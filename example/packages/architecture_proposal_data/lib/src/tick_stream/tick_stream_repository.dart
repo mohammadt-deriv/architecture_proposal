@@ -19,10 +19,10 @@ class TickStreamRepository implements TickStreamFetcher {
   }
 
   @override
-  Future<void> forgotTickStream(String subscriptionId) async {
-    final request = {'forget': subscriptionId};
-
+  Future<void> forgetTickStream(String subscriptionId) async {
     if (subscriptionId.isNotEmpty) {
+      final request = {'forget': subscriptionId};
+
       await source.request(request: request);
     }
   }

@@ -11,8 +11,8 @@ class TickStreamCubit extends Cubit<TickStreamState>
   final TickStreamFetcher fetcher;
 
   @override
-  void loadTickStream(ActiveSymbol symbol) {
-    fetcher.forgotTickStream(state.getTickSubscriptionId).on(
+  Future<void> loadTickStream(ActiveSymbol symbol) async {
+    await fetcher.forgetTickStream(state.getTickSubscriptionId).on(
           onLoading: () => emit(TickStreamLoadingState()),
           onError: (DataException error) => emit(TickStreamErrorState(error)),
         );
@@ -20,13 +20,12 @@ class TickStreamCubit extends Cubit<TickStreamState>
     fetcher.listenTickStream(symbol.symbol).on(
           onLoading: () => emit(TickStreamLoadingState()),
           onData: (data) => data.listen(
-            // TODO: add listen cancelation
+            // TODO: add listen cancelation. we can do it by adding subscriptions to a list and canceling them whenever we need.
             (tick) => emit(
               TickStreamLoadedState(
                 ticks: [...state.getTicks, tick],
                 tickSubscriptionId: tick.id,
-                state:
-                    getTickState(previous: state.getLatestTick, current: tick),
+                state: tick.getPriceState(previous: state.getLatestTick),
               ),
             ),
           ),
@@ -43,4 +42,8 @@ class TickStreamCubit extends Cubit<TickStreamState>
 
   @override
   TickStreamState get currentState => state;
+
+  @override
+  void cancelTickStreams() =>
+      fetcher.forgetTickStream(state.getTickSubscriptionId);
 }

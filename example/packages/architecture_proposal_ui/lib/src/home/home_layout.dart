@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:architecture_proposal_ui/src/auth/auth_listener.dart';
+import 'package:architecture_proposal_ui/src/market_price/tick_stream_widget/tick_stream_builder.dart';
 import 'package:architecture_proposal_ui/src/market_selector/market_selector.dart';
 import 'package:flutter/material.dart';
 
@@ -62,7 +63,7 @@ class _HomeLayoutState extends State<HomeLayout> {
             title: const Text('Home'),
             actions: [
               TextButton.icon(
-                onPressed: widget.authManager.logout,
+                onPressed: _onLogout,
                 icon: const Icon(Icons.logout),
                 label: const Text('Logout'),
               )
@@ -94,10 +95,15 @@ class _HomeLayoutState extends State<HomeLayout> {
                     child: Column(
                   children: [
                     if (widget.chartFeatureEnabled)
-                      TextButton.icon(
-                        icon: const Icon(Icons.show_chart),
-                        label: const Text('Show Chart'),
-                        onPressed: widget.onShowChartTapped,
+                      TickStreamBuilder(
+                        manager: widget.tickStreamManager,
+                        builder: (context, state) => TextButton.icon(
+                          icon: const Icon(Icons.show_chart),
+                          label: const Text('Show Chart'),
+                          onPressed: state is TickStreamLoadedState
+                              ? widget.onShowChartTapped
+                              : null,
+                        ),
                       ),
                   ],
                 ))
@@ -106,4 +112,9 @@ class _HomeLayoutState extends State<HomeLayout> {
           ),
         ),
       );
+
+  void _onLogout() {
+    widget.tickStreamManager.cancelTickStreams();
+    widget.authManager.logout();
+  }
 }

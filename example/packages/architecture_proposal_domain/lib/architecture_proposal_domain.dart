@@ -1,7 +1,6 @@
 export 'src/active_symbol/active_symbol.dart';
 export 'src/active_symbol/active_symbol_fetcher.dart';
 export 'src/tick/tick.dart';
-export 'src/tick/tick_stream_helpers.dart';
 export 'src/tick/tick_stream_fetcher.dart';
 export 'src/tick/tick_stream_manager.dart';
 export 'src/tick/tick_state.dart';
