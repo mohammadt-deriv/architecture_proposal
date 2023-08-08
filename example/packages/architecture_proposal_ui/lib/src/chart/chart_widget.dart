@@ -270,6 +270,9 @@ class _BasicChartPainter extends CustomPainter {
         height * (1 - ((data.last.quote - minY) / (maxY - minY)));
     final double currentValueX = width - currentPainter.width - valuePadding;
 
+    if (currentValueX.isNaN ||
+        currentValueY.isNaN ||
+        currentPainter.height.isNaN) return;
     currentPainter.paint(
       canvas,
       Offset(currentValueX, currentValueY - currentPainter.height),

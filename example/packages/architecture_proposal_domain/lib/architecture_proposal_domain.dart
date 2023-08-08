@@ -18,3 +18,4 @@ export 'src/auth/authenticator.dart';
 export 'src/auth/auth_error.dart';
 export 'src/feature_flag/feature_flag_fetcher.dart';
 export 'src/feature_flag/feature_flag.dart';
+export 'src/connection/app_connection_provider.dart';
