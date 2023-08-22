@@ -61,12 +61,11 @@ It can also define app themes, env variables, flavors, feature flags and anythin
 
 
 ## Why package-by-leyer?
-While it may seem unpopular choice among microservice folks, this is a huge step into separating concerns and prevent spaghetti code in big projects. tight-coupling is the hardest evil among our codebase in deriv mobile apps, and it leads to hard testability, hard maintainability and hard times when adding/removing features.
-In this architecture, if you ever try to fetch data directly from api in a cubit or in a widget, you fail because you don't have access to any data layer classes in your widgets, because they are in data package and you ui package is not depending on it in pubspec. all you have 
-, is some domain interfaces that you can depend on. this will ensures high testability for your ui code.
+While it may seem unpopular choice among microservice folks, this is a huge step into separating concerns and prevent spaghetti code in big projects.
+Here we are not suggesting to have `all` of our codebase separated by layer-first approach. because we are assuming that we already extracted any feature that could be exctracted and be reused in other apps, like trade and auth, into separate package, and we are only architecting whatever is remained.
+Cause if you think about it, there are lot of things in any app that is not reusable for other apps. examples are home and profile.
+If you separate you app into layers first, developers can easily understand your whole app architecture in a glance, without trying to open each feature folder to make sure they are following exact same layers. also you are promoting TDD principles with this layering, as you have strict line between your ui and data code. usually in TDD, you write your UI without worring about who provide you data and how. with this separation by package, there is `zero` chance for any develpoer to violate this rule, because if you ever for example try to fetch data directly in ui code, you will get `compile time` error, thanks to dart dependency managment which tells theres is no dependecy between ui package and data package.
 Also keep in mind that in each package, we don't blindly throw classes in a single folder. we still foldering them by meaningful topics, so it won't be confusing or hard to find what you are looking for.
-Meanwhile, you can still extract huge features(like trade and auth) in separate packages. in fact, you SHOULD.
-
 
 ## Problems that this architecture solves
 in a survey from deriv mobile developers, we asked them to list problems in the codebase they work on daily. here are top 3:
@@ -82,7 +81,7 @@ Also missing domain layer is the real cause of having bad dependency injection a
 
 ## Problems that this architecture introduce
 - You high level widgets, like templates and layouts, will probably have long list of dependencies in their constructor, as they need to also provide dependency for their children. we can fix that by passing them `.of(context)` way but personally i prefer get compile error when i miss passing a dependency, not runtime one.
-- You need to go through different packages to add/remove a feature code.
+- You need to go through 1-2 more folder to add/remove a features compared to feature-first architects.
 - You might not be familiar with TDD and fail to define proper interfaces for your UI.(happens for me)
 
 ## Folders Structure
@@ -90,13 +89,12 @@ First we create the main `app` package. then we create a folder called `packages
 you can find a sample of this structure in `example` folder of this repo.
 
 
-    .
-    ├── lib
+    app-package
+    │
     ├── packages
     │   ├── data-package   
     │   ├── ui-package
     │   └── domain-package
-    └── pubspec.yaml
 
 ## Localization
 Localization shoud be done in `ui package`, since only widgets in ui package need localization.
