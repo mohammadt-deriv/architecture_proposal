@@ -5,7 +5,7 @@
 [Diagram Link](https://excalidraw.com/#json=scYH0c-Eq1jmE-Y_rAcUh,S-34y1qVKRI4uCiJm5rBvQ)
 
 ## What is it
-Its just a custom version of layered architecture, fine-tuned for flutter apps, aming for high `test ability` and `simplicity`.
+Its just a custom version of layered architecture, fine-tuned for flutter apps, aming for high `testability` and `simplicity`.
 
 ## Overview
 This architecture consists of 4 main layers, where each layer reside in its own package:
@@ -77,10 +77,10 @@ in a survey from deriv mobile developers, we asked them to list problems in the 
  - Due to tight coupling.
 
 Tight coupling is result of mixing UI and data code, which in this architecture we tried to define clear constraints for violating it, by having separate package for each layer.
-Also missing domain layer is the real cause of having bad dependency injection and low test ability.
+Also missing domain layer is the real cause of having bad dependency injection and low testability.
 
 ## Problems that this architecture introduces
-- You high level widgets, like templates and layouts, will probably have long list of dependencies in their constructor, as they need to also provide dependency for their children. We can fix that by passing them `.of(context)` way but personally i prefer get compile error when i miss passing a dependency, not run time one.
+- You high level widgets, like templates and layouts, will probably have long list of dependencies in their constructor, as they need to also provide dependency for their children. We can fix that by passing them `.of(context)` way but personally i prefer get compile error when i miss passing a dependency, not runtime one.
 - You need to go through 1-2 more folder to add/remove a features compared to feature-first architects.
 - You might not be familiar with TDD and fail to define proper interfaces for your UI.(happens for me)
 
@@ -89,7 +89,7 @@ First we create the main `app` package. then we create a folder called `packages
 You can find a sample of this structure in `example` folder of this repo.
 
 
- app-package
+    app-package
     │
     ├── packages
     │   ├── data-package   
