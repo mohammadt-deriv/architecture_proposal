@@ -1,8 +1,9 @@
 # Package-by-Layer Architecture
 
-![diagram](https://github.com/mohammadt-deriv/architecture_proposal/assets/75987594/946f57f3-01d1-4466-9a6e-6026568b7eff)
 
-[Diagram Link](https://excalidraw.com/#json=scYH0c-Eq1jmE-Y_rAcUh,S-34y1qVKRI4uCiJm5rBvQ)
+<img width="1497" alt="Screenshot 2023-08-23 at 12 02 19 PM" src="https://github.com/mohammadt-deriv/architecture_proposal/assets/75987594/a48a5786-f8c2-4bd2-97ec-1511c1a4180e">
+
+[Full diagram Link](https://excalidraw.com/#json=scYH0c-Eq1jmE-Y_rAcUh,S-34y1qVKRI4uCiJm5rBvQ)
 
 ## What is it
 Its just a custom version of layered architecture, fine-tuned for flutter apps, aming for high `testability` and `simplicity`.
