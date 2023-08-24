@@ -97,6 +97,23 @@ You can find a sample of this structure in `example` folder of this repo.
     │   ├── ui-package
     │   └── domain-package
 
+## Testing
+Testing with this architecture is pretty straightforward, specially the UI part, since you can even test complex `pages` functionalities by passing all dependecies of that page through constrcutor. You also don't need to be worry about navigation in your testing, since you're sure all navigation logic is in app package, not UI.
+You can see example of testing a page in this file: 
+[HomePage Test](https://github.com/mohammadt-deriv/architecture_proposal/blob/master/example/packages/architecture_proposal_ui/test/home/home_layout_test.dart)
+
+## Migration plan
+For migrating an existing project to this architecture, you have to follow these steps:
+1. **Init new strcuture**: Create `packages` folder and init all `data`, `UI`, `domain` packages in that folder.
+2. **Extract a feature UI**: Move `one` of feature's pages + its widgets and cubits to `UI` package. We will fix errors in next step. don't forget to create a folder with feature's name and put files in there.
+3. **Refactor extracted UI**: Remove all dependecies to data classes, navigation and non-ui codes(just move them to a temp place as we need them in next steps). now depend on correct interfaces and entities for your widgets and cubits. Also add these intefaces and entities to your `domain`package. This step might be the most challenging step but once you do it right, rest is much easier.
+4. **Define data classes**: This step might be differernt for each case, but usually you have to create a repository class which implements defined interfaces, and accepts a data source as dependecy. you need to make sure all the removed logics in previous step is now covered in your new data classess.
+5. **Replace with extracted page**: Now in your lagacy project, replace old widgets refrences with your new refactored widgets.
+6. **Test app functionality**: Test if app works as before. chances are `high` that you've broke something, but don't panic and track the issue patiently. Rememeber first steps are always harder. the more page you extract, the easier proccess gets.
+7. **Repeat proccess with next Page/Feature**: After app gets back to normal state, it means a success migration for one feature. continue with next feature.
+
 ## Localization
-should be done in `UI package`, since only widgets in UI package need localization.
+Localization should be done in `UI package`, since only widgets in UI package need localization.
 We can do it by passing generated localization delegates from `UI package` to `app package` in `MaterialApp`, and thats no issue because our app package already knows about UI package.
+
+
