@@ -61,9 +61,8 @@ It can also define app themes, env variables, flavors, feature flags and anythin
 - No Data code allowed in this layer.
 
 
-## Why package-by-leyer?
-While it may seem unpopular choice among micro service folks, this is a huge step into separating concerns and prevent spaghetti code in big projects.
-Here we are not suggesting having `all` of our codebase separated by layer-first approach. Because we are assuming that we already extracted any feature that could be extracted and be reused in other apps, like trade and auth, into separate package, and we are only architecting whatever is remained.
+## Isn't this layered-first architecture?
+It might be called that way but its an effective one. Here we are not suggesting to have `all` of our codebase separated by layer-first approach. Because we are assuming that we already extracted any feature that could be extracted and be reused in other apps, like trade and auth, into separate package, and we are only architecting whatever is remained.
 Cause if you think about it, there are lot of things in any app that is not reusable for other apps. Examples are home and profile.
 If you separate you app into layers first, developers can easily understand your whole app architecture in a glance, without trying to open each feature folder to make sure they are following exact same layers. also, you are promoting TDD principles with this layering, as you have strict line between your UI and data code. Usually in TDD, you write your UI without worrying about whom provide you data and how. with this separation by package, there is `zero` chance for any developer to violate this rule, because if you ever for example try to fetch data directly in UI code, you will get `compile time` error, thanks to dart dependency management which tells there's is no dependency between UI package and data package.
 Also keep in mind that in each package, we don't blindly throw classes in a single folder. We still foldering them by meaningful topics, so it won't be confusing or hard to find what you are looking for.
