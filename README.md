@@ -70,11 +70,8 @@ Also keep in mind that in each package, we don't blindly throw classes in a sing
 ## Problems that this architecture solves
 in a survey from deriv mobile developers, we asked them to list problems in the codebase they work on daily. Here are top 3:
 - Hard Debugging
- - Due to tight coupling
 - Hard Testing
- - Due to bad/no dependency injection
 - Hard Modifying
- - Due to tight coupling.
 
 Tight coupling is result of mixing UI and data code, which in this architecture we tried to define clear constraints for violating it, by having separate package for each layer.
 Also missing domain layer is the real cause of having bad dependency injection and low testability.
